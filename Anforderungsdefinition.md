@@ -1,20 +1,22 @@
 # Anforderungsdefinition (SMART)
 
 ## S: Spezifisch
-Das Ziel dieses Projekts ist es, die bestehende Access-Datenbank für eine kleine Jugendherberge auf ein leistungsfähigeres MySQL-Datenbankmanagementsystem zu migrieren. Die Migration umfasst sowohl die Struktur (DDL-Skripte) als auch die Daten (CSV-Dateien). Nach der lokalen Migration werden die Daten auf ein Cloud-DBMS übertragen, um einen sicheren und skalierbaren produktiven Betrieb zu gewährleisten.
+In diesem Projekt geht es darum, die bestehende Access-Datenbank einer Jugendherberge auf eine leistungsfähigere MySQL-Datenbank umzustellen. Dabei müssen sowohl die Struktur (DDL-Skripte) als auch die Daten (CSV-Dateien) migriert werden. Nachdem die lokale MySQL-Datenbank eingerichtet wurde, soll die Datenbank auf ein Cloud-DBMS migriert werden, um die Daten in einem sicheren und skalierbaren Umfeld für den produktiven Betrieb zu haben.
 
 ## M: Messbar
-Der Erfolg des Projekts wird gemessen, wenn:
-1. Die lokale MySQL-Datenbank erfolgreich eingerichtet und mit den CSV-Daten importiert wurde.
-2. Alle Daten korrekt konsolidiert und auf Konsistenz geprüft wurden.
-3. Die Migration auf das Cloud-DBMS abgeschlossen ist und die Performance sowie Sicherheit getestet wurden.
-4. Eine erfolgreiche Demo durchgeführt und die Testprotokolle sowie Scripte für die Migration bereitgestellt wurden.
+Das Projekt ist dann erfolgreich, wenn:
+1. Die lokale MySQL-Datenbank korrekt eingerichtet ist und die CSV-Daten ohne Fehler importiert wurden.
+2. Alle Daten auf Konsistenz überprüft und konsolidiert wurden.
+3. Die Migration auf das Cloud-DBMS abgeschlossen ist, und sowohl die Performance als auch die Sicherheit der Datenbank getestet wurden.
+4. Eine Demo durchgeführt wurde und alle Testprotokolle sowie die Skripte für die Migration dokumentiert sind.
 
 ## A: Attraktiv
-Die Migration auf ein leistungsfähigeres MySQL-Datenbankmanagementsystem sowie der Übergang in die Cloud ist eine wertvolle Erfahrung. Diese Vorgehensweise wird auch in vielen realen Projekten benötigt, vor allem bei der Optimierung von Datenbankinfrastrukturen und der Einführung von Cloud-Lösungen.
+Das Projekt ist nicht nur praktisch, sondern auch eine super Gelegenheit, um wertvolle Erfahrungen zu sammeln. Wenn wir von einer alten Access-Datenbank auf MySQL migrieren und die Daten dann in die Cloud bringen, lernen wir wichtige Skills, die in der Berufswelt oft gefragt sind. Es geht darum, eine bestehende Lösung zu verbessern und zu modernisieren – und genau solche Aufgaben kommen immer wieder vor, wenn es darum geht, Datenbanken effizienter und zukunftssicher zu machen.
+
 
 ## R: Realisierbar
-Das Projekt ist mit den vorhandenen Ressourcen und Kenntnissen der Beteiligten realisierbar. Es werden gängige Tools wie XAMPP für die lokale MySQL-Datenbank und AWS für die Cloud-Datenbank verwendet. Zudem gibt es bereits vorbereitete Daten (DDL-Skripte und CSV-Dateien), die als Grundlage dienen.
+Das Projekt ist auf jeden Fall machbar. Wir haben alle nötigen Ressourcen, wie die vorbereiteten Daten und Tools (z.B. XAMPP für MySQL und AWS für die Cloud-Datenbank). Das Projekt ist mit unseren aktuellen Fähigkeiten und der vorgesehenen Zeitspanne gut umsetzbar.
 
 ## T: Terminiert
-Das Projekt muss bis zum 08. Mai 2025 abgeschlossen sein.
+Das Projekt muss bis spätestens zum 08. Mai 2025 abgeschlossen sein.
+
