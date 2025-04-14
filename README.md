@@ -49,4 +49,4 @@ Das Projekt wird bis zum **08. Mai 2025** abgeschlossen sein. Eine Demo der fina
 
 ## Kontakt
 
-Wenn du Fragen zum Projekt hast,
+Wenn du Fragen zum Projekt hast, kannst du dich an Ilai oder Luka unter Ilai.luise@edu.tbz.ch / luka.vukadin@edu.tbz.ch wenden.
