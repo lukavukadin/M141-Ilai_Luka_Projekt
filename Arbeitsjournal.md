@@ -16,7 +16,7 @@ Wir haben uns für **MariaDB** auf **AWS RDS** entschieden, da es eine hohe **Ko
 - Ein **Entity-Relationship-Diagramm (ERD)** wurde auf Basis des **Backpacker-Schemas** erstellt. Es wurde die **2. Normalform (2.NF)** angewendet, um Daten **zu normalisieren** und Redundanz zu vermeiden.
   
 **Beispiel für die Erstellung der Tabellen in MySQL**:
-```sql
+
 CREATE TABLE tbl_benutzer (
     Benutzer_ID INT AUTO_INCREMENT PRIMARY KEY,
     Benutzername VARCHAR(50),
@@ -24,6 +24,7 @@ CREATE TABLE tbl_benutzer (
     Vorname VARCHAR(50),
     Name VARCHAR(50)
 );
+
 2.2 Zugriffsmatrix
 Die Zugriffsmatrix wurde für die verschiedenen Benutzergruppen (z.B. Benutzer, Management, Admin) erstellt:
 
