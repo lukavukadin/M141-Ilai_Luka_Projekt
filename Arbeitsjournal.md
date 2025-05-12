@@ -8,9 +8,6 @@ Die Aufgabenstellung beinhaltete die Bereinigung einer lokalen MySQL-Datenbank u
 ### 1.2 Evaluation Cloud RDBMS
 Für das Projekt wurde MySQL als relationales Datenbankmanagementsystem (RDBMS) sowohl lokal als auch in der Cloud verwendet. Die Wahl fiel auf MySQL aufgrund seiner Verbreitung und der Verfügbarkeit als Managed Service auf AWS.
 
-### 1.3 Link zu Repository/Datenpool
-Der Link zum Repository und dem Datenpool wurde auf der Projektplattform bereitgestellt.
-
 ---
 
 ## 2. Lokale DBMS
