@@ -1,169 +1,59 @@
-# Dokumentation der Migration der „Backpacker“-Datenbank auf AWS RDS
+# Dokumentation der Projektarbeit
 
-## 1. Anforderungsdefinition und Infrastruktur
+## 1. Definition der Infrastruktur
 
-### Zielsetzung
-Das Ziel dieser Praxisarbeit war es, die bestehende **lokale Datenbank** der **„Backpacker“-Jugendherberge**, die auf **MySQL** läuft, auf **AWS RDS (MariaDB)** zu migrieren. Dies wurde durchgeführt, um eine **verbesserte Skalierbarkeit**, **Verfügbarkeit** und **Sicherheit** zu gewährleisten.
+### 1.1 Anforderungsdefinition
+Die Aufgabenstellung beinhaltete die Bereinigung einer lokalen MariaDB-Datenbank und deren Migration auf eine AWS Cloud-Datenbank. Zunächst haben wir die Datenbank auf einem lokalen Server eingerichtet und dann die Daten bereinigt. Abschließend haben wir das System in der Cloud mit den entsprechenden Sicherheitsvorkehrungen und Berechtigungen konfiguriert.
 
-### Cloud RDBMS Auswahl
-Wir haben uns für **MariaDB** auf **AWS RDS** entschieden, da es eine hohe **Kompatibilität** mit **MySQL** bietet und gut zu den **Cloud**-Betriebsanforderungen passt. Es bietet zudem die nötige **Flexibilität** für den **Produktivbetrieb** und hat den Vorteil einer **automatischen Skalierung**.
+### 1.2 Evaluation Cloud RDBMS
+Für das Projekt wurde MariaDB als relationales Datenbankmanagementsystem (RDBMS) sowohl lokal als auch in der Cloud verwendet. Die Wahl fiel auf MariaDB aufgrund ihrer Zuverlässigkeit und der Verfügbarkeit als Managed Service auf AWS.
+
+### 1.3 Link zu Repository/Datenpool
+Der Link zum Repository und dem Datenpool wurde auf der Projektplattform bereitgestellt.
 
 ---
 
-## 2. Lokale DBMS (MySQL)
+## 2. Lokale DBMS
 
-### 2.1 Erstellung der ERD und Normalisierung
-- Ein **Entity-Relationship-Diagramm (ERD)** wurde auf Basis des **Backpacker-Schemas** erstellt. Es wurde die **2. Normalform (2.NF)** angewendet, um Daten **zu normalisieren** und Redundanz zu vermeiden.
-  
-**Beispiel für die Erstellung der Tabellen in MySQL**:
+### 2.1 Setup der lokalen Datenbank
+Für das Projekt haben wir XAMPP verwendet, um MariaDB lokal zu betreiben. Die Struktur der Datenbank wurde aus einer bereitgestellten DDL-Datei in phpMyAdmin importiert.
 
-CREATE TABLE tbl_benutzer (
-    Benutzer_ID INT AUTO_INCREMENT PRIMARY KEY,
-    Benutzername VARCHAR(50),
-    Passwort VARCHAR(100),
-    Vorname VARCHAR(50),
-    Name VARCHAR(50)
-);
+### 2.2 Datenbereinigung
+Die Datenbank war mit Fehlern behaftet, die wir manuell und automatisiert bereinigt haben. Fehler wie Zahlen im Vornamen, fehlerhafte Orte und ungültige Daten wurden identifiziert und korrigiert.
 
-2.2 Zugriffsmatrix
-Die Zugriffsmatrix wurde für die verschiedenen Benutzergruppen (z.B. Benutzer, Management, Admin) erstellt:
+#### Manuelle Bereinigung
+Einige der fehlerhaften Datensätze wurden manuell mit Excel bearbeitet und anschließend wieder in die Datenbank importiert.
 
-Benutzer: Zugriff auf grundlegende Leseoperationen.
+---
 
-Management: Lese- und Schreibzugriff auf bestimmte Tabellen.
+## 3. Remote Cloud-DBMS
 
-Administrator: Vollzugriff auf alle Tabellen und Operationen.
+### 3.1 Setup der Cloud-Datenbank
+Nach der Bereinigung der lokalen Datenbank haben wir die Daten auf AWS migriert. Zunächst mussten wir eine MariaDB-Instanz auf AWS RDS (Relational Database Service) einrichten. Dabei haben wir eine Sicherheitsgruppe erstellt, die nur den Zugang über den SSH-Port 22 erlaubte.
 
-SQL-Skript zur Benutzerberechtigung:
+### 3.2 Sicherstellung des Betriebs
+Wir haben die MariaDB-Instanz auf AWS gesichert, indem wir die notwendigen Konfigurationen für den produktiven Betrieb durchgeführt haben. Hierzu gehörten die Anpassung der Konfigurationsdateien und das Setzen von Berechtigungen.
 
-sql
-Kopieren
-CREATE USER 'user'@'%' IDENTIFIED BY 'password';
-GRANT SELECT ON backpacker_db.* TO 'user'@'%';
-2.3 Berechtigungen konfigurieren
-Die Zugriffsrechte für alle Benutzergruppen wurden mithilfe von SQL-Skripten (DCL) konfiguriert:
+### 3.3 Verbindung mit der Cloud-Datenbank
+Wir haben MySQL Workbench verwendet, um eine Verbindung zu unserer AWS-Datenbank aufzubauen. Dafür haben wir den Endpoint der RDS-Instanz kopiert und uns mit den entsprechenden Zugangsdaten verbunden. Nach der Verbindung haben wir das SQL-Skript zur Erstellung der Datenbank, das wir ursprünglich in phpMyAdmin verwendet hatten, in MySQL Workbench eingefügt und ausgeführt.
 
-Beispiel für Berechtigungen:
+## 4. Automatisierte Migration
 
-sql
-Kopieren
-GRANT ALL PRIVILEGES ON backpacker_db.* TO 'admin'@'%';
-FLUSH PRIVILEGES;
-2.4 Importieren der Daten aus CSV
-Die CSV-Dateien mit den Daten wurden in die MySQL-Datenbank importiert, dabei wurden Fremdschlüssel, Indizes und Constraints hinzugefügt.
+### 4.1 Berechtigungen
+Die Berechtigungen für die Benutzer wurden nach der Migration auf die Cloud-Datenbank automatisiert übertragen. Wir haben SQL-Skripte für die Erstellung von Benutzern und deren Rollen gemäß der Zugriffsmatrix erstellt. Die Benutzer hatten unterschiedliche Berechtigungen, basierend auf den festgelegten Gruppenrollen.
 
-Beispiel-SQL für den Import:
+### 4.2 Datenmigration
+Die Daten aus der lokalen Datenbank wurden mittels DDL- und DML-Skripten automatisiert in die Cloud-Datenbank übertragen. Dies umfasste die Struktur der Tabellen sowie die relevanten Datensätze. Alle Beziehungen und Constraints wurden dabei beibehalten.
 
-sql
-Kopieren
-LOAD DATA INFILE '/path/to/csv/tbl_benutzer.csv'
-INTO TABLE tbl_benutzer
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
-2.5 Bereinigung und Konsistenzprüfung
-Die Daten wurden auf Konsistenz überprüft, und alle fehlerhaften oder duplizierten Daten wurden entfernt.
+### 4.3 Test der Migration
+Wir haben die Datenkonsistenz nach der Migration geprüft, indem wir Testdaten aus der lokalen Datenbank verwendet haben. Dafür führten wir Testabfragen auf der Cloud-Datenbank aus, um sicherzustellen, dass alle Daten korrekt übertragen wurden.
 
-3. Remote Cloud-DBMS (AWS RDS)
-3.1 Erstellen der RDS-Datenbankinstanz
-AWS RDS wurde verwendet, um eine MariaDB-Instanz in der Region us-east-1 zu erstellen.
+## 5. Protokollierung
 
-Die RDS-Instanz wurde mit MySQL 8.0 konfiguriert.
+Die gesamten Schritte von der Bereinigung der lokalen Datenbank bis zur Migration auf AWS und der Einrichtung der Cloud-Datenbank wurden dokumentiert. Testprotokolle wurden erstellt und alle SQL-Skripte sind versioniert und im Repository verfügbar.
 
-Die Sicherheitsgruppen und VPC wurden so konfiguriert, dass nur berechtigte IPs Zugriff auf die Datenbank haben.
+## 6. Abschluss und Demo
+Im letzten Schritt haben wir eine Demo durchgeführt, bei der wir drei Benutzer in der AWS-Cloud-Datenbank erstellt haben. Die Demo beinhaltete die Demonstration des Zugriffs auf die Datenbank und die Ausführung von SQL-Abfragen. Die Demo dauerte 10-15 Minuten und wurde erfolgreich abgeschlossen.
 
-SQL zum Aktivieren des öffentlichen Zugriffs auf RDS:
-
-sql
-Kopieren
-ALTER DB INSTANCE 'backpacker-db' SET PUBLIC ACCESS = TRUE;
-3.2 Sicherstellung des Betriebs der RDS-Datenbank
-Die RDS-Datenbank wurde für den produktionsfähigen Betrieb optimiert:
-
-Automatisierte Backups und Wartungsoptionen wurden konfiguriert.
-
-Speichergröße und IOPS wurden auf 200 GiB und 3000 IOPS festgelegt, um optimale Leistung zu gewährleisten.
-
-4. Automatisierte Migration
-4.1 Berechtigungen und Benutzer übertragen
-Die Benutzerrollen und Berechtigungen wurden auf AWS RDS übertragen. Dies wurde mit SQL-Skripten durchgeführt:
-
-SQL-Skript zur Erstellung des Benutzers in RDS:
-
-sql
-Kopieren
-CREATE USER 'admin'@'%' IDENTIFIED BY 'securepassword';
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%';
-FLUSH PRIVILEGES;
-4.2 Datenbankstruktur und Daten migrieren
-Der MySQL Dump wurde aus der lokalen MariaDB-Datenbank exportiert:
-
-bash
-Kopieren
-mysqldump -u admin -p --databases backpacker_db > backup.sql
-Der SQL-Dump wurde in die RDS-Datenbank importiert:
-
-bash
-Kopieren
-mysql -h backpacker-db.cn2q26omm0b8.us-east-1.rds.amazonaws.com -P 3306 -u admin -p < backup.sql
-4.3 Testen der Migration
-Nach dem Import wurde die Datenkonsistenz überprüft:
-
-Testabfragen wurden ausgeführt, um sicherzustellen, dass alle Daten korrekt migriert wurden:
-
-sql
-Kopieren
-SELECT * FROM tbl_benutzer LIMIT 10;
-Auch Beziehungen und Indizes wurden überprüft, um sicherzustellen, dass alle Fremdschlüsselbeziehungen beibehalten wurden.
-
-5. Protokollierung und Dokumentation
-5.1 Dokumentation des Prozesses
-Alle Schritte des Datenbankmigration-Prozesses wurden dokumentiert:
-
-Datenbank-Erstellung und -Konfiguration
-
-Benutzer- und Berechtigungsmanagement
-
-Datenimport und -migration
-
-Testabfragen und Konsistenzprüfung
-
-5.2 Demo der Migration
-Eine Demo der Migration wurde durchgeführt, bei der die Datenbank auf AWS RDS getestet wurde. Es wurden Daten aus mehreren Tabellen abgefragt, um sicherzustellen, dass sie korrekt übertragen wurden.
-
-6. Abschluss
-6.1 Ergebnisse
-Datenbank erfolgreich migriert: Alle Daten und Beziehungen wurden erfolgreich in AWS RDS migriert.
-
-Datenkonsistenz wurde nach dem Import überprüft und getestet.
-
-6.2 Weitere Schritte
-Regelmäßige Backups und Wartung der RDS-Datenbank werden fortgesetzt.
-
-Überwachung mit AWS CloudWatch wird eingerichtet, um eine hohe Verfügbarkeit zu gewährleisten.
-
-Gesamtbewertung:
-Maximale Punktzahl: 40 Punkte
-
-Gesamtpunkte: 40 Punkte
-
-SQL-Skripte für die Migration:
-Erstellen von Benutzern und Berechtigungen:
-
-sql
-Kopieren
-CREATE USER 'admin'@'%' IDENTIFIED BY 'securepassword';
-GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%';
-FLUSH PRIVILEGES;
-Datenbankstruktur importieren:
-
-bash
-Kopieren
-mysqldump -u admin -p --databases backpacker_db > backup.sql
-mysql -h backpacker-db.cn2q26omm0b8.us-east-1.rds.amazonaws.com -P 3306 -u admin -p < backup.sql
-Testabfrage nach der Migration:
-
-sql
-Kopieren
-SELECT * FROM tbl_benutzer LIMIT 10;
+## Fazit
+Das Projekt war eine erfolgreiche Implementierung der Datenbankmigration von einem lokalen MariaDB-Server zu einer Cloud-Datenbank auf AWS. Durch den Einsatz von SQL-Skripten und der AWS RDS-Plattform konnten wir die Anforderungen an die Datenbereinigung, -migration und -sicherung erfolgreich umsetzen.
