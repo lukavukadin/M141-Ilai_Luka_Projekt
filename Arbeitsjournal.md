@@ -25,7 +25,7 @@ Die Datenbank war mit Fehlern behaftet, die wir manuell und automatisiert berein
 Einige der fehlerhaften Datensätze wurden manuell mit Excel bearbeitet und anschließend wieder in die Datenbank importiert.
 
 #### Automatisierte Bereinigung mit SQL-Skripten
-Einige Fehler wurden mit SQL-Skripten automatisch korrigiert. Weitere Details und das vollständige Bereinigungsskript sind in der Datei [Bereinigungsscript.md](Bereinigungsscript.md) zu finden.
+Einige Fehler wurden mit SQL-Skripten automatisch korrigiert. Weitere Details und das vollständige Bereinigungsskript sind in der Datei [Bereinigungsscript.md](Scripts/Bereinigungsscript.md) zu finden.
 
 ---
 
