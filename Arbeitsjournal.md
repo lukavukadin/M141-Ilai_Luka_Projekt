@@ -45,10 +45,10 @@ Wir haben MySQL Workbench verwendet, um eine Verbindung zu unserer AWS-Datenbank
 ## 4. Automatisierte Migration
 
 ### 4.1 Migration der Datenbank auf die Cloud
-Nach der Bereinigung der lokalen Datenbank haben wir die Migration auf AWS durchgeführt. Hierzu haben wir ein Skript erstellt, um die MySQL-Datenbank mit allen Tabellen, Indizes und Daten auf die AWS-Cloud-Datenbank zu übertragen. Weitere Details zur automatisierten Migration der Datenbank sind in der Datei [Automatisierte_migration.md](M141-Ilai_Luka_Projekt/Automatisierte_migration.md) zu finden.
+Nach der Bereinigung der lokalen Datenbank haben wir die Migration auf AWS durchgeführt. Hierzu haben wir ein Skript erstellt, um die MySQL-Datenbank mit allen Tabellen, Indizes und Daten auf die AWS-Cloud-Datenbank zu übertragen. Weitere Details zur automatisierten Migration der Datenbank sind in der Datei [Automatisierte_migration.md](Scripts/Automatisierte_migration.md) zu finden.
 
 ### 4.2 Erstellung der Benutzerrollen und Zuweisung von Berechtigungen
-Die Berechtigungen für die Benutzer wurden nach der Migration auf die Cloud-Datenbank automatisiert übertragen. Hierbei haben wir verschiedene Benutzerrollen erstellt und ihnen entsprechende Berechtigungen zugewiesen. Details zur Erstellung der Benutzer und der Zugriffsmatrix sind in der Datei [Zugriffsmatrix.md](M141-Ilai_Luka_Projekt/Zugriffsmatrix.md) zu finden.
+Die Berechtigungen für die Benutzer wurden nach der Migration auf die Cloud-Datenbank automatisiert übertragen. Hierbei haben wir verschiedene Benutzerrollen erstellt und ihnen entsprechende Berechtigungen zugewiesen. Details zur Erstellung der Benutzer und der Zugriffsmatrix sind in der Datei [Zugriffsmatrix.md](Scripts/Zugriffsmatrix.md) zu finden.
 
 ---
 
